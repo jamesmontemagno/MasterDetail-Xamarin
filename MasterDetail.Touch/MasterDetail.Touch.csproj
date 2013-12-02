@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -104,6 +104,18 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MasterDetail.Core\Models\TimeEntry.cs">
+      <Link>Models\TimeEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\MasterViewModel.cs">
+      <Link>ViewModels\MasterViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\RelayCommand.cs">
+      <Link>ViewModels\RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\ViewModelBase.cs">
+      <Link>ViewModels\ViewModelBase.cs</Link>
+    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="MasterViewController.cs" />
@@ -114,13 +126,10 @@
     <Compile Include="DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\TimeEntry.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <ItemGroup />
 </Project>

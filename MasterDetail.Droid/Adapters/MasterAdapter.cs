@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MasterDetail.Core.Models;
 
 namespace MasterDetail.Droid
 {

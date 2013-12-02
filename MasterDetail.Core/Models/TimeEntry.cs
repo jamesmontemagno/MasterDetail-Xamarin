@@ -1,6 +1,6 @@
 using System;
 
-namespace MasterDetail.Touch
+namespace MasterDetail.Core.Models
 {
 	public class TimeEntry
 	{

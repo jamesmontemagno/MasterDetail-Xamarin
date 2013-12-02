@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MasterDetail.Core.Models;
 
 namespace MasterDetail.Touch
 {
@@ -14,7 +15,7 @@ namespace MasterDetail.Touch
 		{
 		}
 
-		public void SetDetailItem (object newDetailItem)
+    public void SetDetailItem(TimeEntry newDetailItem)
 		{
 			if (detailItem != newDetailItem) {
 				detailItem = newDetailItem;

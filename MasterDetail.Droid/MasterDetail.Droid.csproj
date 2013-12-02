@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,12 +47,23 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MasterDetail.Core\Models\TimeEntry.cs">
+      <Link>Models\TimeEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\MasterViewModel.cs">
+      <Link>ViewModels\MasterViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\RelayCommand.cs">
+      <Link>ViewModels\RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\MasterDetail.Core\ViewModels\ViewModelBase.cs">
+      <Link>ViewModels\ViewModelBase.cs</Link>
+    </Compile>
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MasterActivity.cs" />
     <Compile Include="DetailActivity.cs" />
     <Compile Include="Adapters\MasterAdapter.cs" />
-    <Compile Include="Models\TimeEntry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -69,8 +80,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Resources\menu\" />
-    <Folder Include="Adapters\" />
-    <Folder Include="Models\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
+using MasterDetail.Core.Models;
 
 namespace MasterDetail.Droid
 {

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MasterDetail.Core.Models;
 
 namespace MasterDetail.Touch
 {
