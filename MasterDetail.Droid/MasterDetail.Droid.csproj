@@ -81,10 +81,21 @@
     <AndroidResource Include="Resources\layout\Master.axml" />
     <AndroidResource Include="Resources\layout\Detail.axml" />
     <AndroidResource Include="Resources\menu\master_menu.xml" />
-    <AndroidResource Include="Resources\drawable\ic_action_rating_good.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_content_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_content_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_content_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_new.png" />
   </ItemGroup>
 </Project>

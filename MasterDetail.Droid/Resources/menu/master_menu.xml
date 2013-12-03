@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/action_add"
 	      android:title="@string/menu_add"
-	      android:icon="@drawable/ic_action_rating_good"
+	      android:icon="@drawable/ic_action_content_new"
 	      android:showAsAction="ifRoom"/>
 </menu>
