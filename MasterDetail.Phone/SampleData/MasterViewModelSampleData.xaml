@@ -1,0 +1,14 @@
+﻿<ViewModels:MasterViewModel xmlns:ViewModels="clr-namespace:MasterDetail.Core.ViewModels" xmlns:Models="clr-namespace:MasterDetail.Core.Models">
+	<ViewModels:MasterViewModel.Items>
+		<Models:TimeEntry IsSpecial="True" Time="12/02/2013 21:25:41" Title="Curabitur cras"/>
+		<Models:TimeEntry IsSpecial="False" Time="12/02/2013 21:25:41" Title="Aenean nam duis maecenas praesent"/>
+		<Models:TimeEntry IsSpecial="True" Time="12/02/2013 21:25:41" Title="Sed class"/>
+		<Models:TimeEntry IsSpecial="False" Time="12/02/2013 21:25:41" Title="Aliquam mauris nunc phasellus"/>
+		<Models:TimeEntry IsSpecial="True" Time="12/02/2013 21:25:41" Title="Dis curae"/>
+		<Models:TimeEntry IsSpecial="False" Time="12/02/2013 21:25:41" Title="Donec accumsan etiam amet integer"/>
+		<Models:TimeEntry IsSpecial="True" Time="12/02/2013 21:25:41" Title="Est hac bibendum consequat fusce"/>
+		<Models:TimeEntry IsSpecial="False" Time="12/02/2013 21:25:41" Title="Vestibulum adipiscing convallis"/>
+		<Models:TimeEntry IsSpecial="True" Time="12/02/2013 21:25:41" Title="Dignissim elementum facilisis nullam lorem"/>
+		<Models:TimeEntry IsSpecial="False" Time="12/02/2013 21:25:41" Title="Morbi nulla parturient dictumst"/>
+	</ViewModels:MasterViewModel.Items>
+</ViewModels:MasterViewModel>

@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
 using System.Windows.Input;
 using MasterDetail.Core.Models;
 
@@ -36,6 +38,19 @@ namespace MasterDetail.Core.ViewModels
     public void ExecuteDeleteCommand(int index)
     {
       Items.RemoveAt(index);
+      OnPropertyChanged("Items");
+    }
+
+    private RelayCommand<int> deleteIdCommand;
+
+    public ICommand DeleteIdCommand
+    {
+      get { return deleteIdCommand ?? (deleteIdCommand = new RelayCommand<int>(ExecuteDeleteIdCommand)); }
+    }
+
+    public void ExecuteDeleteIdCommand(int id)
+    {
+      Items.Remove(Items.FirstOrDefault(i => i.Id == id));
       OnPropertyChanged("Items");
     }
 
