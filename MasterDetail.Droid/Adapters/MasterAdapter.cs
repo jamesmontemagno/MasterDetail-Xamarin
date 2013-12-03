@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Android.App;
@@ -16,11 +17,11 @@ namespace MasterDetail.Droid
 	public class MasterAdapter : BaseAdapter
 	{
 		private Activity activity;
-		List<TimeEntry> objects;
-		public MasterAdapter(Activity activity, List<TimeEntry> objects)
+    ObservableCollection<TimeEntry> items;
+		public MasterAdapter(Activity activity, ObservableCollection<TimeEntry> items)
 		{
 			this.activity = activity;
-			this.objects = objects;
+			this.items = items;
 		}
 
 		//Wrapper class for adapter for cell re-use
@@ -55,14 +56,14 @@ namespace MasterDetail.Droid
 				helper = convertView.Tag as MasterAdapterHelper;
 			}
 
-			helper.Title.Text = objects [position].ToString ();
+			helper.Title.Text = items [position].ToString ();
 
 			return convertView;
 		}
 
 		public override int Count {
 			get {
-				return objects.Count;
+				return items.Count;
 			}
 		}
 		#endregion

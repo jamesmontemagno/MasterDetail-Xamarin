@@ -11,7 +11,7 @@ using Android.Widget;
 
 namespace MasterDetail.Droid
 {
-	[Activity (Label = "DetailActivity")]			
+  [Activity(Label = "DetailActivity", Theme = "@style/android:Theme.Holo.Light")]			
 	public class DetailActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)

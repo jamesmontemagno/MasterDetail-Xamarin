@@ -1,19 +1,21 @@
-using System;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.Collections.Generic;
-using MasterDetail.Core.Models;
+using MasterDetail.Core.ViewModels;
 
 namespace MasterDetail.Droid
 {
-	[Activity (Label = "MasterDetail.Droid", MainLauncher = true)]
+  [Activity(Label = "MasterDetail.Droid", MainLauncher = true, Theme = "@style/android:Theme.Holo.Light")]
 	public class MainActivity : ListActivity
 	{
-		private List<TimeEntry> objects = new List<TimeEntry>();
+	  private static MasterViewModel viewModel;
+
+	  public static MasterViewModel ViewModel
+	  {
+      get { return viewModel ?? (viewModel = new MasterViewModel()); }
+	  }
 
 
 		protected override void OnCreate (Bundle bundle)
@@ -24,33 +26,18 @@ namespace MasterDetail.Droid
 			SetContentView (Resource.Layout.Master);
 
 
-			ListAdapter = new MasterAdapter (this, objects);
+      ListAdapter = new MasterAdapter(this, ViewModel.Items);
 
 			ListView.ItemLongClick += (sender, e) => {
-				DeleteItem(e.Position);
+				ViewModel.DeleteCommand.Execute(e.Position);
+        ((MasterAdapter)ListAdapter).NotifyDataSetChanged();
 			};
-		}
-
-		private void AddItem()
-		{
-			objects.Insert (0, new TimeEntry());
-			RunOnUiThread (() => {
-				((MasterAdapter)ListAdapter).NotifyDataSetChanged();
-			});
-		}
-
-		private void DeleteItem(int index)
-		{
-			objects.RemoveAt (index);
-			RunOnUiThread (() => {
-				((MasterAdapter)ListAdapter).NotifyDataSetChanged();
-			});
 		}
 
 		private void NavigateToDetails(int index)
 		{
 			var intent = new Intent (this, typeof(DetailActivity));
-			intent.PutExtra ("item", objects [index].ToString ());
+			intent.PutExtra ("item", ViewModel.Items[index].ToString ());
 			StartActivity (intent);
 		}
 
@@ -70,7 +57,8 @@ namespace MasterDetail.Droid
 		{
 			switch (item.ItemId) {
 			case Resource.Id.action_add:
-				AddItem ();
+				ViewModel.AddCommand.Execute(null);
+        ((MasterAdapter)ListAdapter).NotifyDataSetChanged();
 				return true;
 			}
 			return base.OnOptionsItemSelected (item);
