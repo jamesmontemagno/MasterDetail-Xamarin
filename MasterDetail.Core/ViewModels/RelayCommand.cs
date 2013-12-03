@@ -11,15 +11,16 @@ namespace MasterDetail.Core.ViewModels
   {
     private readonly Action handler;
     private bool isEnabled;
-    private readonly Func<object, bool> canExecute;
+    private readonly Func<bool> canExecute;
 
-    public RelayCommand(Action handler, Func<object, bool> canExecute = null)
+    public RelayCommand(Action handler, Func<bool> canExecute = null)
     {
       this.handler = handler;
       this.canExecute = canExecute;
       if (canExecute == null)
         isEnabled = true;
     }
+
 
     public bool IsEnabled
     {
@@ -40,7 +41,7 @@ namespace MasterDetail.Core.ViewModels
     public bool CanExecute(object parameter)
     {
       if(canExecute != null)
-        IsEnabled = canExecute(parameter);
+        IsEnabled = canExecute();
 
       return IsEnabled;
     }
@@ -50,6 +51,20 @@ namespace MasterDetail.Core.ViewModels
     public void Execute(object parameter)
     {
       handler();
+    }
+
+    /// <summary>
+    /// Method used to raise the <see cref="CanExecuteChanged"/> event
+    /// to indicate that the return value of the <see cref="CanExecute"/>
+    /// method has changed.
+    /// </summary>
+    public void RaiseCanExecuteChanged()
+    {
+      var handler = CanExecuteChanged;
+      if (handler != null)
+      {
+        handler(this, EventArgs.Empty);
+      }
     }
   }
 
@@ -97,6 +112,20 @@ namespace MasterDetail.Core.ViewModels
     public void Execute(object parameter)
     {
       handler((T)parameter);
+    }
+
+    /// <summary>
+    /// Method used to raise the <see cref="CanExecuteChanged"/> event
+    /// to indicate that the return value of the <see cref="CanExecute"/>
+    /// method has changed.
+    /// </summary>
+    public void RaiseCanExecuteChanged()
+    {
+      var handler = CanExecuteChanged;
+      if (handler != null)
+      {
+        handler(this, EventArgs.Empty);
+      }
     }
   }
 }

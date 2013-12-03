@@ -1,4 +1,5 @@
-﻿using MasterDetail.Store.Common;
+﻿using MasterDetail.Core.ViewModels;
+using MasterDetail.Store.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace MasterDetail.Store
     public sealed partial class SplitPage : Page
     {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private MasterViewModel defaultViewModel = new MasterViewModel();
 
         /// <summary>
         /// NavigationHelper is used on each page to aid in navigation and 
@@ -40,7 +41,7 @@ namespace MasterDetail.Store
         /// <summary>
         /// This can be changed to a strongly typed view model.
         /// </summary>
-        public ObservableDictionary DefaultViewModel
+        public MasterViewModel DefaultViewModel
         {
             get { return this.defaultViewModel; }
         }
@@ -56,7 +57,7 @@ namespace MasterDetail.Store
 
             // Setup the logical page navigation components that allow
             // the page to only show one pane at a time.
-            this.navigationHelper.GoBackCommand = new RelayCommand(() => this.GoBack(), () => this.CanGoBack());
+            this.navigationHelper.GoBackCommand = new MasterDetail.Store.Common.RelayCommand(() => this.GoBack(), () => this.CanGoBack());
             this.itemListView.SelectionChanged += ItemListView_SelectionChanged;
 
             // Start listening for Window size changes 
@@ -86,16 +87,16 @@ namespace MasterDetail.Store
             {
                 this.itemListView.SelectedItem = null;
                 // When this is a new page, select the first item automatically unless logical page
-                // navigation is being used (see the logical page navigation #region below.)
+                /*// navigation is being used (see the logical page navigation #region below.)
                 if (!this.UsingLogicalPageNavigation() && this.itemsViewSource.View != null)
                 {
                     this.itemsViewSource.View.MoveCurrentToFirst();
-                }
+                }*/
             }
             else
             {
                 // Restore the previously saved state associated with this page
-                if (e.PageState.ContainsKey("SelectedItem") && this.itemsViewSource.View != null)
+                //if (e.PageState.ContainsKey("SelectedItem") && this.itemsViewSource.View != null)
                 {
                     //var selectedItem = await SampleDataSource.GetItemAsync((String)e.PageState["SelectedItem"]);
                     //this.itemsViewSource.View.MoveCurrentTo(selectedItem);
@@ -116,7 +117,7 @@ namespace MasterDetail.Store
         /// serializable state.</param>
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            if (this.itemsViewSource.View != null)
+            //if (this.itemsViewSource.View != null)
             {
                 //var selectedItem = (Data.SampleDataItem)this.itemsViewSource.View.CurrentItem;
                 //if (selectedItem != null) e.PageState["SelectedItem"] = selectedItem.UniqueId;
@@ -245,5 +246,15 @@ namespace MasterDetail.Store
         }
 
         #endregion
+
+      private void RemoveButton_OnClick(object sender, RoutedEventArgs e)
+      {
+        if (itemListView.SelectedItem == null)
+          return;
+
+        DefaultViewModel.DeleteCommand.Execute(itemListView.SelectedIndex);
+      }
+
+      
     }
 }

@@ -89,7 +89,7 @@ namespace MasterDetail.Store
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(ItemsPage), e.Arguments);
+                rootFrame.Navigate(typeof(SplitPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
