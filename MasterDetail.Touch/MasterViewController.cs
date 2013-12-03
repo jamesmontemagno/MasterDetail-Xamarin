@@ -1,15 +1,18 @@
 using System;
-using System.Drawing;
-using System.Collections.Generic;
+using MasterDetail.Core.ViewModels;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using MasterDetail.Core.Models;
 
 namespace MasterDetail.Touch
 {
 	public partial class MasterViewController : UITableViewController
 	{
-		DataSource dataSource;
+	  private MasterViewModel viewModel;
+
+	  public MasterViewModel ViewModel
+	  {
+      get { return viewModel ?? (viewModel = new MasterViewModel()); }
+	  }
 
 		public MasterViewController (IntPtr handle) : base (handle)
 		{
@@ -20,19 +23,11 @@ namespace MasterDetail.Touch
 
 		void AddNewItem (object sender, EventArgs args)
 		{
-			dataSource.Objects.Insert (0, new TimeEntry());
-
+			ViewModel.AddCommand.Execute(null);
 			using (var indexPath = NSIndexPath.FromRowSection (0, 0))
-				TableView.InsertRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Automatic);
+				TableView.InsertRows (new[] { indexPath }, UITableViewRowAnimation.Automatic);
 		}
 
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
 
 		public override void ViewDidLoad ()
 		{
@@ -44,13 +39,13 @@ namespace MasterDetail.Touch
 			var addButton = new UIBarButtonItem (UIBarButtonSystemItem.Add, AddNewItem);
 			NavigationItem.RightBarButtonItem = addButton;
 
-			TableView.Source = dataSource = new DataSource (this);
+			TableView.Source = new DataSource (this);
 		}
 
 		class DataSource : UITableViewSource
 		{
 			static readonly NSString CellIdentifier = new NSString ("Cell");
-			readonly List<TimeEntry> objects = new List<TimeEntry> ();
+			
 			readonly MasterViewController controller;
 
 			public DataSource (MasterViewController controller)
@@ -58,9 +53,6 @@ namespace MasterDetail.Touch
 				this.controller = controller;
 			}
 
-			public IList<TimeEntry> Objects {
-				get { return objects; }
-			}
 			// Customize the number of sections in the table view.
 			public override int NumberOfSections (UITableView tableView)
 			{
@@ -69,14 +61,14 @@ namespace MasterDetail.Touch
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return objects.Count;
+				return controller.ViewModel.Items.Count;
 			}
 			// Customize the appearance of table view cells.
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = (UITableViewCell)tableView.DequeueReusableCell (CellIdentifier, indexPath);
+				var cell = tableView.DequeueReusableCell (CellIdentifier, indexPath);
 
-				cell.TextLabel.Text = objects [indexPath.Row].ToString ();
+        cell.TextLabel.Text = controller.ViewModel.Items[indexPath.Row].ToString();
 
 				return cell;
 			}
@@ -91,33 +83,17 @@ namespace MasterDetail.Touch
 			{
 				if (editingStyle == UITableViewCellEditingStyle.Delete) {
 					// Delete the row from the data source.
-					objects.RemoveAt (indexPath.Row);
-					controller.TableView.DeleteRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-				} else if (editingStyle == UITableViewCellEditingStyle.Insert) {
-					// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+          controller.ViewModel.DeleteCommand.Execute(indexPath.Row);
+					controller.TableView.DeleteRows (new[] { indexPath }, UITableViewRowAnimation.Fade);
 				}
 			}
-			/*
-			// Override to support rearranging the table view.
-			public override void MoveRow (UITableView tableView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
-			{
-			}
-			*/
-			/*
-			// Override to support conditional rearranging of the table view.
-			public override bool CanMoveRow (UITableView tableView, NSIndexPath indexPath)
-			{
-				// Return false if you do not want the item to be re-orderable.
-				return true;
-			}
-			*/
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
 			if (segue.Identifier == "showDetail") {
 				var indexPath = TableView.IndexPathForSelectedRow;
-				var item = dataSource.Objects [indexPath.Row];
+        var item = ViewModel.Items[indexPath.Row];
 
 				((DetailViewController)segue.DestinationViewController).SetDetailItem (item);
 			}
